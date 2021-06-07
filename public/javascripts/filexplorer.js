@@ -45,21 +45,3 @@ const app = new Vue({
         this.fetchAPIData()
      }
 })
-
-const app2 = new Vue({
-    el: '#headerfolder',
-   
-    data: {
-        dirlist : app.dirlist
-    },
-    methods: {
-        showdir(newfolder){
-            dir = "/"
-            for (let index = 0; index < this.dirlist.length; index++) {
-                const element = this.dirlist[index];
-                dir = dir + element + "/"
-            }
-            return(dir)
-        },
-    }
-})

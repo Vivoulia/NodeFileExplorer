@@ -1,12 +1,32 @@
 <div id="main">
-    <button type="button" id="get-data" @click="fetchAPIData">Rafraichir</button>
-    <button type="button" id="Back" @click="back">Back</button>
-
-    <div v-for="file in result" class="list-group">
-      <a v-if="!file.file" @click = "changefolder(file.name)" class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" class="btn btn-outline-primary" id="Back" @click="back">Back</button>
+            </div>
+            <div class="col-sm">
+                <nav aria-label="breadcrumb" class="float">
+                    <ol class="breadcrumb">
+                        <li v-for="element in dirlist" class="breadcrumb-item"><a href="#"> {{element}} </a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-outline-primary float-end" id="get-data" @click="fetchAPIData">Rafraichir</button>
+            </div>
+        </div>
     </div>
-    <div v-for="file in result" class="list-group">
-      <a v-if="file.file" :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+
+    <br></br>
+
+    <div class="jumbotron">
+
+      <div v-for="file in result" class="list-group">
+        <a v-if="!file.file" @click = "changefolder(file.name)" class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
+      </div>
+      <div v-for="file in result" class="list-group">
+        <a v-if="file.file" :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+      </div>
     </div>
 </div>
 
