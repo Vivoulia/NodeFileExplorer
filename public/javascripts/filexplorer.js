@@ -4,12 +4,25 @@ const app = new Vue({
     data: {
         result: null,
         responseAvailable: false,
-        dir : ""
+        dirlist : []
     },
     methods: {
+        changefolder(newfolder){
+            this.dirlist.push(newfolder)
+            this.fetchAPIData()
+        },
+        back(newfolder){
+            this.dirlist.pop()
+            this.fetchAPIData()
+        },
         fetchAPIData() { 
             this.responseAvailable = false;
-            fetch("/api/files" + this.dir, {
+            dir = ""
+            for (let index = 0; index < this.dirlist.length; index++) {
+                const element = this.dirlist[index];
+                dir = dir + "/" + element
+            }
+            fetch("/api/files" + dir, {
                 "method": "GET",
             })
             .then(response => { 
@@ -31,4 +44,22 @@ const app = new Vue({
     beforeMount(){
         this.fetchAPIData()
      }
+})
+
+const app2 = new Vue({
+    el: '#headerfolder',
+   
+    data: {
+        dirlist : app.dirlist
+    },
+    methods: {
+        showdir(newfolder){
+            dir = "/"
+            for (let index = 0; index < this.dirlist.length; index++) {
+                const element = this.dirlist[index];
+                dir = dir + element + "/"
+            }
+            return(dir)
+        },
+    }
 })

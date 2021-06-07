@@ -22,14 +22,14 @@ router.get("/files", function(req, res) {
         "url" : "/files/" + file,
         "file" : fs.lstatSync(file).isFile()
         })
-      console.log(file);
     })
     res.status(200).json(jsonfiles)
   })
 });
 
-router.get("/files/:folder", function(req, res) {
-  const dir = basedir + "/" + req.params.folder;
+router.get("/files/*", function(req, res) {
+  console.log(req.params[0])
+  const dir = basedir + "/" + req.params[0];
   var jsonfiles = {
     "listfiles": []
   };
