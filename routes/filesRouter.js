@@ -3,8 +3,8 @@ var router = express.Router();
 const basedir = process.env.FOLDER || ".";
 const fs = require('fs');
 
-router.get("/:name", function(req, res) {
-  const fileName = req.params.name;
+router.get("/*", function(req, res) {
+  const fileName = req.params[0];
   const directoryPath = basedir + "/";
   res.download(directoryPath + fileName, fileName, (err) => {
     if (err) {
