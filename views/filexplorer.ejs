@@ -1,0 +1,10 @@
+<div id="main">
+    <button type = "button" id = "get-data" @click = "fetchAPIData">Rafraichir</button>
+
+    <div v-for="file in result" class="list-group">
+      <a :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+    </div>
+</div>
+
+
+<script src="/javascripts/filexplorer.js"></script>

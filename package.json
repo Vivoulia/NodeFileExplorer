@@ -1,0 +1,32 @@
+{
+  "name": "nodefileexplorer",
+  "version": "1.0.0",
+  "description": "Nodejs and VueJs File explorer",
+  "main": "nodefile/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www",
+    "dev": "nodemon -e js,ejs,css ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Batoch/NodeFileExplorer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Batoch/NodeFileExplorer/issues"
+  },
+  "homepage": "https://github.com/Batoch/NodeFileExplorer#readme"
+}
