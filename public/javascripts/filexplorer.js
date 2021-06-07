@@ -3,12 +3,13 @@ const app = new Vue({
    
     data: {
         result: null,
-        responseAvailable: false
+        responseAvailable: false,
+        dir : ""
     },
     methods: {
         fetchAPIData() { 
             this.responseAvailable = false;
-            fetch("/api/files", {
+            fetch("/api/files" + this.dir, {
                 "method": "GET",
             })
             .then(response => { 

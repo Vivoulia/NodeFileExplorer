@@ -1,8 +1,11 @@
 <div id="main">
     <button type = "button" id = "get-data" @click = "fetchAPIData">Rafraichir</button>
-
+    
     <div v-for="file in result" class="list-group">
-      <a :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+      <a v-if="!file.file" :href=file.url class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
+    </div>
+    <div v-for="file in result" class="list-group">
+      <a v-if="file.file" :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
     </div>
 </div>
 
