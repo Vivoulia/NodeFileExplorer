@@ -49,5 +49,24 @@ const app = new Vue({
     },
     beforeMount(){
         this.fetchAPIData()
+     },
+     updated(){
+        //var myModal = new bootstrap.Modal(document.getElementById('Modal'))
+        var videomodal = document.getElementById('videomodal')
+        videomodal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var lienfichier = button.getAttribute('data-bs-lienfichier')
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        var modalTitle = videomodal.querySelector('.modal-title')
+        var videosource = document.getElementById("videosource");
+
+        videosource.src = lienfichier
+        modalTitle.textContent = button.getAttribute('data-bs-nomfichier')
+        })
      }
 })

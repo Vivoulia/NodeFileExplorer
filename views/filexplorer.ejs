@@ -1,5 +1,5 @@
 <div id="main">
-  <nav class="navbar">
+  <nav class="navbar fixed-top navbar-light bg-light">
     <div class="d-flex p-2 bd-highlight">
       <button type="button" class="btn btn-outline-primary" id="Back" @click="back">Back</button>
     </div>
@@ -8,7 +8,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li v-if="dirlist.length == 0" class="breadcrumb-item active" aria-current="page"><a> Root </a></li>
-          <li v-if="dirlist.length != 0" class="breadcrumb-item"><a href="#" @click="clicnav(root)"> Root </a></li>
+          <li v-if="dirlist.length != 0" class="breadcrumb-item"><a href="#" @click="clicnav()"> Root </a></li>
 
           <li v-if="dirlist[dirlist.length - 1] != element" v-for="element in dirlist" class="breadcrumb-item"><a
               href="#" @click="clicnav(element)"> {{element}} </a></li>
@@ -28,6 +28,7 @@
       
 
   <br></br>
+  <br></br>
 
   <div class="jumbotron">
     <div v-for="file in result" class="list-group">
@@ -35,7 +36,33 @@
         class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
     </div>
     <div v-for="file in result" class="list-group">
-      <a v-if="file.file" :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+      <div v-if="file.file" class="d-flex">
+        <a :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="file.url">Launch modal</button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+<div class="modal" tabindex="-1" id="videomodal">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Video</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex align-self-center">
+        <video width='512' height='384' controls autoplay> 
+          <source id="videosource" src='file.name' type='video/x-matroska'>
+        </video>
+      </div>
+
     </div>
   </div>
 </div>
