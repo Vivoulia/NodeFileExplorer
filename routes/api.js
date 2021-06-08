@@ -19,11 +19,33 @@ router.get("/files*", function(req, res) {
       jsonfiles.listfiles.push({
         "name" : file,
         "url" : "/files/" + dir + "/" + file,
-        "file" : fs.lstatSync(dir + "/" + file).isFile()
+        "file" : fs.lstatSync(dir + "/" + file).isFile(),
+        "type" : type(file)
         })
     })
     res.status(200).json(jsonfiles)
   })
 });
+
+function type(filename){
+  var parts = filename.split('.');
+  var extension = parts[parts.length - 1];
+
+  switch (extension.toLowerCase()) {
+    case 'm4v':
+    case 'avi':
+    case 'mpg':
+    case 'mp4':
+      return "video";
+  }
+  switch (extension.toLowerCase()) {
+    case 'jpg':
+    case 'gif':
+    case 'bmp':
+    case 'png':
+      return "image";
+  }
+  return "other"
+}
 
 module.exports = router;
