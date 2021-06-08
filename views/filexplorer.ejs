@@ -39,7 +39,7 @@
       <div v-if="file.file" class="d-flex">
         <a :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
 
-        <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="file.url">Launch modal</button>
+        <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="file.url">Watch video</button>
 
       </div>
 
@@ -60,7 +60,7 @@
 
       <div class="modal-body d-flex align-self-center">
         <video width='512' height='384' controls autoplay> 
-          <source id="videosource" src='file.name' type='video/x-matroska'>
+          <source id="videosource" src='file.name' type='video/mp4'>
         </video>
       </div>
 
