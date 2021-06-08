@@ -15,6 +15,12 @@ const app = new Vue({
             this.dirlist.pop()
             this.fetchAPIData()
         },
+        clicnav(namefolder){
+            while(this.dirlist[this.dirlist.length - 1] != namefolder){
+                this.dirlist.pop()
+            }
+            this.fetchAPIData()
+        },
         fetchAPIData() { 
             this.responseAvailable = false;
             dir = ""
