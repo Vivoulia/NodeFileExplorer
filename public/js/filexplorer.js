@@ -7,7 +7,42 @@ const app = new Vue({
         dirlist : [],                   // list of repo (ex: [user, home] for user/home)
         modalimagetitle : "Image"
     },
+    computed: {
+        onlyimages() {
+            var listimage = []
+            if(this.responseAvailable != false){
+                for (let index = 0; index < this.result.length; index++) {
+                    const element = this.result[index];
+                    if(element.type == 'image'){
+                        listimage.push(element)
+                    }                
+                }
+            }
+            return listimage
+        },
+        getaddindeximage: function () {
+            this.indeximage++
+            return this.indeximage - 1
+        }
+    },
     methods: {
+        getindeximage(indexall) {
+            var listimage = []
+            for (let index = 0; index < this.result.length; index++) {
+                const element = this.result[index];
+                if(element.type == 'image'){
+                    listimage.push(element)
+                }                
+            }
+            var targetimage = this.result[indexall]
+            for (let index = 0; index < listimage.length; index++) {
+                const element = listimage[index];
+                if(element == targetimage)
+                    return index
+            }
+            // not supposed to happen
+            return 0
+        },
         changefolder(newfolder){
             this.dirlist.push(newfolder)
             this.fetchAPIData()
@@ -53,8 +88,8 @@ const app = new Vue({
     },
     beforeMount(){
         this.fetchAPIData()
-     },
-     updated(){
+    },
+    updated(){
         var videomodal = document.getElementById('videomodal')
         videomodal.addEventListener('show.bs.modal', function (event) {
             // Button that triggered the modal
@@ -84,8 +119,6 @@ const app = new Vue({
             // Extract info from data-bs-* attributes
             var lienfichier = button.getAttribute('data-bs-lienfichier')
             var indexfichier = button.getAttribute('data-bs-index')
-            console.log(lienfichier)
-            console.log(indexfichier)
             // Update the modal's content.
             // Update the link
             document.getElementById("carouselnb" + indexfichier).classList.add("active")
@@ -94,6 +127,7 @@ const app = new Vue({
         })
         var carouselimagemodal = document.getElementById('carouselIndicators')
         carouselimagemodal.addEventListener('slid.bs.carousel', function (event) {
+            // Update the title of the modal when change slide
             app.modalimagetitle = document.getElementsByClassName('carousel-item active')[0].innerText
         
         })
