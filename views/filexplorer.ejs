@@ -8,10 +8,10 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li v-if="dirlist.length == 0" class="breadcrumb-item active" aria-current="page"><a> Root </a></li>
-          <li v-if="dirlist.length != 0" class="breadcrumb-item"><a href="#" @click="clicnav()"> Root </a></li>
-
-          <li v-if="dirlist[dirlist.length - 1] != element" v-for="element in dirlist" class="breadcrumb-item"><a
-              href="#" @click="clicnav(element)"> {{element}} </a></li>
+          <li v-if="dirlist.length != 0" class="breadcrumb-item"><a href="#" @click="clicnav(-1)"> Root </a></li>
+          
+          <li v-if="dirlist[dirlist.length - 1] != element" v-for="(element, index) in dirlist" :key="element.name" class="breadcrumb-item"><a
+            href="#" @click="clicnav(index)"> {{element}} </a></li>
           <li v-if="dirlist[dirlist.length - 1] == element" v-for="element in dirlist" class="breadcrumb-item"
             aria-current="page"><a> {{element}} </a></li>
         </ol>

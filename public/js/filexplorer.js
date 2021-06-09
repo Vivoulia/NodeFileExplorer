@@ -16,11 +16,10 @@ const app = new Vue({
             this.dirlist.pop()
             this.fetchAPIData()
         },
-        clicnav(namefolder){
+        clicnav(index){
             // When clic the folder name in the navbar, we remove folders from the list until
-            // The name is the same as clicked
-            // [ISSUE] when 2 folders have the same name, we stop to the first
-            while(this.dirlist[this.dirlist.length - 1] != namefolder){
+            // The length of dirlist is the same as the index of the folder
+            while(this.dirlist.length - 1 > index){
                 this.dirlist.pop()
             }
             this.fetchAPIData()
