@@ -37,9 +37,9 @@
     </div>
     <div v-for="file in result" class="list-group">
       <div v-if="file.file" class="d-flex">
-        <a :href=file.url class="list-group-item list-group-item-action">{{file.name}}</a>
+        <a :href="'/files/' + file.url" class="list-group-item list-group-item-action">{{file.name}}</a>
 
-        <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="file.url">Watch video</button>
+        <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="'/video/' + file.url">Watch video</button>
 
       </div>
 
@@ -47,7 +47,6 @@
   </div>
 
 
-</div>
 
 <div class="modal" tabindex="-1" id="videomodal">
   <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -59,14 +58,13 @@
       </div>
 
       <div class="modal-body d-flex align-self-center">
-        <video width='512' height='384' controls autoplay> 
-          <source id="videosource" src='file.name' type='video/mp4'>
-        </video>
+        <video id="videosource" width='512' height='384' type='video/mp4' controls autoplay></video>
       </div>
 
     </div>
   </div>
 </div>
 
+</div>
 
 <script src="/js/filexplorer.js"></script>
