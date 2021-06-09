@@ -20,6 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Include Vue js
+app.use('/js', express.static(__dirname + '/node_modules/vue/dist/'));
+app.use('/', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+
 
 app.use('/', indexRouter);
 app.use("/api", APIRouter);
