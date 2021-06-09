@@ -4,7 +4,8 @@ const app = new Vue({
     data: {
         result: null,
         responseAvailable: false,       // True if result is updated
-        dirlist : []                    // list of repo (ex: [user, home] for user/home)
+        dirlist : [],                   // list of repo (ex: [user, home] for user/home)
+        modalimagetitle : "Image"
     },
     methods: {
         changefolder(newfolder){
@@ -75,5 +76,39 @@ const app = new Vue({
             document.getElementById("videosource").pause();
 
         })
+
+        var imagemodal = document.getElementById('imagemodal')
+        imagemodal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var lienfichier = button.getAttribute('data-bs-lienfichier')
+            var indexfichier = button.getAttribute('data-bs-index')
+            console.log(lienfichier)
+            console.log(indexfichier)
+            // Update the modal's content.
+            // Update the link
+            document.getElementById("carouselnb" + indexfichier).classList.add("active")
+            document.getElementById("carouselbtnnb" + indexfichier).classList.add("active")
+            app.modalimagetitle = button.getAttribute('data-bs-nomfichier')
+        })
+        var carouselimagemodal = document.getElementById('carouselIndicators')
+        carouselimagemodal.addEventListener('slid.bs.carousel', function (event) {
+            app.modalimagetitle = document.getElementsByClassName('carousel-item active')[0].innerText
+        
+        })
+
+
+        imagemodal.addEventListener('hidden.bs.modal', function (event) {
+            // When closed, desactivate the carousel
+            const carouselactive = document.getElementsByClassName('carousel-item active')
+            while(carouselactive[0] != undefined){
+                const indexcarousel = carouselactive[carouselactive.length-1].id.split("carouselnb")[1]
+                document.getElementById("carouselbtnnb" + indexcarousel).classList.remove("active")
+                carouselactive[carouselactive.length-1].classList.remove("active")
+            }
+
+        })
+
      }
 })
