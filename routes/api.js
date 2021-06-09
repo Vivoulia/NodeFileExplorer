@@ -36,6 +36,7 @@ function type(filename){
     case 'avi':
     case 'mpg':
     case 'mp4':
+    case 'mkv':     // mkv work only with chrome
       return "video";
   }
   switch (extension.toLowerCase()) {
