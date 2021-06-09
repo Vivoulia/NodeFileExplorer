@@ -3,8 +3,8 @@ const app = new Vue({
    
     data: {
         result: null,
-        responseAvailable: false,
-        dirlist : []
+        responseAvailable: false,       // True if result is updated
+        dirlist : []                    // list of repo (ex: [user, home] for user/home)
     },
     methods: {
         changefolder(newfolder){
@@ -12,10 +12,14 @@ const app = new Vue({
             this.fetchAPIData()
         },
         back(newfolder){
+            // When clic the btn return, we remove 1 folder from the list
             this.dirlist.pop()
             this.fetchAPIData()
         },
         clicnav(namefolder){
+            // When clic the folder name in the navbar, we remove folders from the list until
+            // The name is the same as clicked
+            // [ISSUE] when 2 folders have the same name, we stop to the first
             while(this.dirlist[this.dirlist.length - 1] != namefolder){
                 this.dirlist.pop()
             }
@@ -51,22 +55,26 @@ const app = new Vue({
         this.fetchAPIData()
      },
      updated(){
-        //var myModal = new bootstrap.Modal(document.getElementById('Modal'))
         var videomodal = document.getElementById('videomodal')
         videomodal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        var lienfichier = button.getAttribute('data-bs-lienfichier')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        var modalTitle = videomodal.querySelector('.modal-title')
-        var videosource = document.getElementById("videosource");
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var lienfichier = button.getAttribute('data-bs-lienfichier')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var modalTitle = videomodal.querySelector('.modal-title')
+            // Update the link
+            document.getElementById("videosource").src = lienfichier
+            modalTitle.textContent = button.getAttribute('data-bs-nomfichier')
+        })
 
-        videosource.src = lienfichier
-        modalTitle.textContent = button.getAttribute('data-bs-nomfichier')
+        videomodal.addEventListener('hidden.bs.modal', function (event) {
+            // When closed, pause the video
+            document.getElementById("videosource").pause();
+
         })
      }
 })
