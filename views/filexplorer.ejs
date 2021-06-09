@@ -30,18 +30,20 @@
   <br></br>
   <br></br>
 
-  <div class="jumbotron">
+  <div class="jumbotron shadow-sm p-3 mb-5 ">
     <div v-for="file in result" class="list-group">
       <a v-if="!file.file" @click="changefolder(file.name)"
         class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
     </div>
     <div v-for="(file, index) in result" :key="file.name" class="list-group">
       <div v-if="file.file" class="d-flex">
-        <a :href="'/files/' + file.url" class="list-group-item list-group-item-action">{{file.name}}</a>
-
-        <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="'/video/' + file.url">Watch video</button>
-        <button v-if="file.type == 'image'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imagemodal" :data-bs-nomfichier="file.name" :data-bs-index="getindeximage(index)" :data-bs-lienfichier="'/files/' + file.url">View image</button>
-
+        <div class="d-flex flex-fill align-content-center">
+          <a :href="'/files/' + file.url" class="list-group-item list-group-item-action d-flex align-middle">{{file.name}}</a>
+        </div>
+        <div class="d-flex">
+          <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="'/video/' + file.url">Watch video</button>
+          <button v-if="file.type == 'image'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imagemodal" :data-bs-nomfichier="file.name" :data-bs-index="getindeximage(index)" :data-bs-lienfichier="'/files/' + file.url">View image</button>
+        </div>
       </div>
     </div>
   </div>
