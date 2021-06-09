@@ -18,7 +18,7 @@ router.get("/files*", function(req, res) {
     filenames.forEach(file => {
       jsonfiles.listfiles.push({
         "name" : file,
-        "url" : "/files/" + dir + "/" + file,
+        "url"  : dir + "/" + file,
         "file" : fs.lstatSync(dir + "/" + file).isFile(),
         "type" : type(file)
         })
