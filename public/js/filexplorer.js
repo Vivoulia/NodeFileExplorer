@@ -47,7 +47,7 @@ const app = new Vue({
             this.dirlist.push(newfolder)
             this.fetchAPIData()
         },
-        back(newfolder){
+        back(){
             // When clic the btn return, we remove 1 folder from the list
             this.dirlist.pop()
             this.fetchAPIData()
@@ -74,6 +74,7 @@ const app = new Vue({
                 if(response.ok){
                     return response.json()
                 } else{
+                    this.back()
                     alert("Server returned " + response.status + " : " + response.statusText);
                 }
             })
