@@ -58,7 +58,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <div class="ratio ratio ratio-16x9 modal-body align-self-center">
+          <div class="ratio ratio-16x9 modal-body align-self-center">
             <video id="videosource" type='video/mp4' controls autoplay></video>
           </div>
 
@@ -76,15 +76,11 @@
           </div>
 
           <div class="modal-body d-flex align-self-center">
-            
             <div id="carouselIndicators" class="carousel carousel-fade" data-interval="false">
-
-
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselIndicators" :data-bs-slide-to="index" :aria-label="'Slide' + index" :id="'carouselbtnnb' + index"  v-if="file.type == 'image'" v-for="(file, index) in onlyimages" :key="file.name"></button>
               </div>
               <div class="carousel-inner">
-            
                 <div class="list-group">
                     <div v-for="(file, index) in onlyimages" :key="file.name" class="carousel-item" :id="'carouselnb' + index">
                       <img :src="'/files/' + file.url" :alt="file.name">
@@ -93,7 +89,6 @@
                       </div>
                     </div>
                 </div>
-            
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
