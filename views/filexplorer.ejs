@@ -58,8 +58,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <div class="modal-body d-flex align-self-center">
-            <video id="videosource" width='512' height='384' type='video/mp4' controls autoplay></video>
+          <div class="ratio ratio ratio-16x9 modal-body align-self-center">
+            <video id="videosource" type='video/mp4' controls autoplay></video>
           </div>
 
         </div>
@@ -87,7 +87,7 @@
             
                 <div class="list-group">
                     <div v-for="(file, index) in onlyimages" :key="file.name" class="carousel-item" :id="'carouselnb' + index">
-                      <img :src="'/files/' + file.url" :alt="file.name" style="width:100%;">
+                      <img :src="'/files/' + file.url" :alt="file.name">
                       <div class="carousel-caption">
                         <h3>{{file.name}}</h3>
                       </div>
