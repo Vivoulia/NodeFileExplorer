@@ -35,6 +35,7 @@
       <a @click="changefolder(file.name)"
         class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
     </div>
+    <template v-else></template>
     <div v-for="(file, index) in result" v-if="file.file" :key="file.name" class="list-group">
       <div class="d-flex">
         <div class="d-flex flex-fill align-content-center">
@@ -46,6 +47,7 @@
         </div>
       </div>
     </div>
+    <template v-else></template>
   </div>
 
 
