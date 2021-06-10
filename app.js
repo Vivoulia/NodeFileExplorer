@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
 var APIRouter = require("./routes/api");
-var filesRouter = require("./routes/filesrouter");
-var videoRouter = require("./routes/videoRouter");
+var filesRouter = require("./routes/files");
+var videoRouter = require("./routes/video");
 
 var app = express();
 
