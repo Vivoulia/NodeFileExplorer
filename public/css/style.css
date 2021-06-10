@@ -1,5 +1,5 @@
 body {
-  padding: 40px;
+  padding: 0px 40px 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -7,8 +7,13 @@ a {
   color: #00B7FF;
 }
 
+.btn-outline-primary {
+  background: rgba(248, 249, 250, 0.9);
+}
+
 .navbar {
   justify-content: space-around;
+  background: rgba(248, 249, 250, 0.8);
 }
 
 .jumbotron {

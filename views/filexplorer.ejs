@@ -1,5 +1,6 @@
 <div id="main">
-  <nav class="navbar fixed-top navbar-light bg-light">
+  <nav class="navbar sticky-top navbar-light">
+
     <div class="d-flex p-2 bd-highlight">
       <button type="button" class="btn btn-outline-primary" id="Back" @click="back">Back</button>
     </div>
@@ -23,12 +24,7 @@
         @click="fetchAPIData">Rafraichir</button>
     </div>
 
-</nav>
-
-      
-
-  <br></br>
-  <br></br>
+  </nav>
 
   <div class="jumbotron shadow-sm p-3 mb-5 ">
     <div v-for="file in result" v-if="!file.file" class="list-group">
@@ -49,7 +45,6 @@
     </div>
     <template v-else></template>
   </div>
-
 
 
 <div class="modal" tabindex="-1" id="videomodal">
