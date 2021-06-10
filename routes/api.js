@@ -18,12 +18,17 @@ router.get("/files*", function(req, res) {
     filenames.forEach(file => {
       jsonfiles.listfiles.push({
         "name" : file,
-        "url"  : dir + "/" + file,
+        "url"  : req.params[0] + "/" + file,
         "file" : fs.lstatSync(dir + "/" + file).isFile(),
         "type" : type(file)
         })
     })
     res.status(200).json(jsonfiles)
+  }).catch((error) => {
+    console.error(error);
+    res.status(423).send({
+      message: "Error accessing the folder.",
+    });
   })
 });
 
