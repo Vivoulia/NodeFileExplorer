@@ -1,5 +1,5 @@
 <div id="main">
-  <nav class="navbar sticky-top navbar-light">
+  <nav class="filenavbar navbar sticky-top navbar-light">
 
     <div class="d-flex p-2 bd-highlight">
       <button type="button" class="btn btn-outline-primary" id="Back" @click="back">Back</button>
@@ -26,100 +26,89 @@
 
   </nav>
 
-  <div class="jumbotron shadow-sm p-3 mb-5 ">
-    <div v-for="file in result" v-if="!file.file" class="list-group">
-      <a @click="changefolder(file.name)"
-        class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
-    </div>
-    <template v-else></template>
-    <div v-for="(file, index) in result" v-if="file.file" :key="file.name" class="list-group">
-      <div class="d-flex">
-        <div class="d-flex flex-fill align-content-center">
-          <a :href="'/files/' + file.url" class="list-group-item list-group-item-action d-flex align-middle">{{file.name}}</a>
-        </div>
+  <div class="fileexp">
+    <div class="jumbotron shadow-sm p-3 mb-5 ">
+      <div v-for="file in result" v-if="!file.file" class="list-group">
+        <a @click="changefolder(file.name)"
+          class="list-group-item list-group-item-action list-group-item-secondary">{{file.name}}</a>
+      </div>
+      <template v-else></template>
+      <div v-for="(file, index) in result" v-if="file.file" :key="file.name" class="list-group">
         <div class="d-flex">
-          <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="'/video/' + file.url">Watch video</button>
-          <button v-if="file.type == 'image'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imagemodal" :data-bs-nomfichier="file.name" :data-bs-index="getindeximage(index)" :data-bs-lienfichier="'/files/' + file.url">View image</button>
+          <div class="d-flex flex-fill align-content-center">
+            <a :href="'/files/' + file.url" class="list-group-item list-group-item-action d-flex align-middle">{{file.name}}</a>
+          </div>
+          <div class="d-flex">
+            <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="'/video/' + file.url">Watch video</button>
+            <button v-if="file.type == 'image'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imagemodal" :data-bs-nomfichier="file.name" :data-bs-index="getindeximage(index)" :data-bs-lienfichier="'/files/' + file.url">View image</button>
+          </div>
+        </div>
+      </div>
+      <template v-else></template>
+    </div>
+  </div>
+
+  <div class="modaux">
+    <div class="modal" tabindex="-1" id="videomodal">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-video-title">Video</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body d-flex align-self-center">
+            <video id="videosource" width='512' height='384' type='video/mp4' controls autoplay></video>
+          </div>
+
         </div>
       </div>
     </div>
-    <template v-else></template>
-  </div>
+  
+    <div class="modal" tabindex="-1" id="imagemodal">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
 
-
-<div class="modal" tabindex="-1" id="videomodal">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal-video-title">Video</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body d-flex align-self-center">
-        <video id="videosource" width='512' height='384' type='video/mp4' controls autoplay></video>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<div class="modal" tabindex="-1" id="imagemodal">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal-image-title">{{modalimagetitle}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body d-flex align-self-center">
-        
-        <div id="carouselIndicators" class="carousel carousel-fade" data-interval="false">
-
-
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselIndicators" :data-bs-slide-to="index" :aria-label="'Slide' + index" :id="'carouselbtnnb' + index"  v-if="file.type == 'image'" v-for="(file, index) in onlyimages" :key="file.name"></button>
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-image-title">{{modalimagetitle}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="carousel-inner">
-        
-            <div class="list-group">
-                <div v-for="(file, index) in onlyimages" :key="file.name" class="carousel-item" :id="'carouselnb' + index">
-                  <img :src="'/files/' + file.url" :alt="file.name" style="width:100%;">
-                  <div class="carousel-caption">
-                    <h3>{{file.name}}</h3>
-                  </div>
+
+          <div class="modal-body d-flex align-self-center">
+            
+            <div id="carouselIndicators" class="carousel carousel-fade" data-interval="false">
+
+
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselIndicators" :data-bs-slide-to="index" :aria-label="'Slide' + index" :id="'carouselbtnnb' + index"  v-if="file.type == 'image'" v-for="(file, index) in onlyimages" :key="file.name"></button>
+              </div>
+              <div class="carousel-inner">
+            
+                <div class="list-group">
+                    <div v-for="(file, index) in onlyimages" :key="file.name" class="carousel-item" :id="'carouselnb' + index">
+                      <img :src="'/files/' + file.url" :alt="file.name" style="width:100%;">
+                      <div class="carousel-caption">
+                        <h3>{{file.name}}</h3>
+                      </div>
+                    </div>
                 </div>
+            
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
-        
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 
