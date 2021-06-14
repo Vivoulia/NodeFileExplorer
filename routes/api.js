@@ -1,16 +1,16 @@
-var express = require('express');
-var router = express.Router();
 const basedir = process.env.FOLDER || ".";
 const fs = require('fs');
 
-/* GET API. */
-router.get("/", function(req, res) {
-  res.send("API is working properly");
-});
+function api(req, res) {
+  const requestdir = req.body.dir;  
 
-router.get("/files*", function(req, res) {
-  console.log(req.params[0])
-  const dir = basedir + "/" + req.params[0];
+  var dir = basedir;
+  for (let index = 0; index < requestdir.length; index++) {
+      const element = requestdir[index];
+      dir = dir + "/" + element
+  }
+  //const dir = basedir + "/" + requestdir;
+  
   var jsonfiles = {"listfiles": []};
   new Promise((resolve, reject) => {
     return fs.readdir(dir, (err, filenames) => err != null ? reject(err) : resolve(filenames))
@@ -18,7 +18,7 @@ router.get("/files*", function(req, res) {
     filenames.forEach(file => {
       jsonfiles.listfiles.push({
         "name" : file,
-        "url"  : req.params[0] + "/" + file,
+        "url"  : dir + "/" + file,
         "file" : fs.lstatSync(dir + "/" + file).isFile(),
         "type" : type(file)
         })
@@ -30,7 +30,7 @@ router.get("/files*", function(req, res) {
       message: "Error accessing the folder.",
     });
   })
-});
+};
 
 function type(filename){
   var parts = filename.split('.');
@@ -54,4 +54,4 @@ function type(filename){
   return "other"
 }
 
-module.exports = router;
+module.exports = api;

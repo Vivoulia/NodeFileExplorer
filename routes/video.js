@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
 const basedir = process.env.FOLDER || ".";
 const fs = require('fs');
 
-router.get("/*", function(req, res) {
+function video(req, res) {
     const fileName = req.params[0];
     const directoryPath = basedir + "/";
     // Ensure there is a range given for the video
@@ -39,7 +37,7 @@ router.get("/*", function(req, res) {
 
     // Stream the video chunk to the client
     videoStream.pipe(res);
-});
+};
 
 
-module.exports = router;
+module.exports = video;

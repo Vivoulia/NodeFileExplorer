@@ -62,13 +62,11 @@ const app = new Vue({
         },
         fetchAPIData() { 
             this.responseAvailable = false;
-            dir = ""
-            for (let index = 0; index < this.dirlist.length; index++) {
-                const element = this.dirlist[index];
-                dir = dir + "/" + element
-            }
-            fetch("/api/files" + dir, {
-                "method": "GET",
+            const json = {"dir": this.dirlist}
+            fetch("/api/files", {
+                method: "POST",
+                body: JSON.stringify(json),
+                headers : new Headers({"Content-Length" : "<calculated when request is sent>", "Content-Type": "application/json"})
             })
             .then(response => { 
                 if(response.ok){

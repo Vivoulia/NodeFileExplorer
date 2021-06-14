@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
 const basedir = process.env.FOLDER || ".";
 const fs = require('fs');
 
-router.get("/*", function(req, res) {
+function files(req, res) {
   const fileName = req.params[0];
   const directoryPath = basedir + "/";
   res.download(directoryPath + fileName, fileName, (err) => {
@@ -13,7 +11,6 @@ router.get("/*", function(req, res) {
       });
     }
   });
-});
+};
 
-
-module.exports = router;
+module.exports = files
