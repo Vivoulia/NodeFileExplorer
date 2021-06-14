@@ -1,13 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-
-var indexRouter = require('./routes/index');
-var APIRouter = require("./routes/api");
-var filesRouter = require("./routes/files");
-var videoRouter = require("./routes/video");
-
 var app = express();
 
 // view engine setup
@@ -16,17 +9,14 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// Include Vue js
-app.use('/js', express.static(__dirname + '/node_modules/vue/dist/'));
-app.use('/', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use('/js', express.static(__dirname + '/node_modules/vue/dist/'));      // Include Vue js
+app.use('/', express.static(__dirname + '/node_modules/bootstrap/dist/'));  // Include bootstrap
 
-
-app.use('/', indexRouter);
-app.use("/api", APIRouter);
-app.use("/files", filesRouter);
-app.use("/video", videoRouter);
+app.use('/', require('./routes/index'));
+app.use("/api", require("./routes/api"));
+app.use("/files", require("./routes/files"));
+app.use("/video", require("./routes/video"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
