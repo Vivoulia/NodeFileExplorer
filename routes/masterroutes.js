@@ -10,10 +10,9 @@ var cb0 = function (req, res, next) {
     console.log('CB0');
     next();
   }
-var jsonParser = express.json();
 
 router.get("/", index)
-router.post("/api/files*",jsonParser,  [cb0, api])
+router.post("/api/files*",  [cb0, api])
 router.get("/files/*", files)
 router.get("/video/*", video)
 
