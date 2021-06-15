@@ -6,11 +6,8 @@ function api(req, res) {
 
   var dir = basedir;
   for (let index = 0; index < requestdir.length; index++) {
-      const element = requestdir[index];
-      dir = dir + "/" + element
+      dir = dir + "/" + requestdir[index];
   }
-  //const dir = basedir + "/" + requestdir;
-  
   var jsonfiles = {"listfiles": []};
   new Promise((resolve, reject) => {
     return fs.readdir(dir, (err, filenames) => err != null ? reject(err) : resolve(filenames))
