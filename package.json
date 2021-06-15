@@ -20,6 +20,7 @@
     "http-errors": "~1.8.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "sanitize-filename": "^1.6.3",
     "sqlite3": "^5.0.2",
     "vue": "^2.6.14"
   },

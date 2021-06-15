@@ -1,14 +1,13 @@
 const basedir = process.env.FOLDER || ".";
 const fs = require('fs');
+const sanitize = require("sanitize-filename");
 
 function api(req, res) {
   const requestdir = req.body.dir;  
 
   var dir = basedir;
   for (let index = 0; index < requestdir.length; index++) {
-    if(requestdir[index] != ".."){
-      dir = dir + "/" + requestdir[index];
-    }
+    dir = dir + "/" + sanitize(requestdir[index]);
   }
   var jsonfiles = {"listfiles": []};
   new Promise((resolve, reject) => {
