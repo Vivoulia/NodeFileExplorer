@@ -6,7 +6,9 @@ function api(req, res) {
 
   var dir = basedir;
   for (let index = 0; index < requestdir.length; index++) {
+    if(requestdir[index] != ".."){
       dir = dir + "/" + requestdir[index];
+    }
   }
   var jsonfiles = {"listfiles": []};
   new Promise((resolve, reject) => {
