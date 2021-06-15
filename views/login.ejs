@@ -1,0 +1,28 @@
+<%- include('header.ejs') %>
+
+<body class="bg-light text-center login">
+	<header class="header">
+	</header>
+	
+<div id="login">
+	<div class="jumbotron shadow-sm p-3 mb-5 d-inline-flex text-center">
+		<form action="/login" method="post" @submit="checkForm" novalidate>
+			<p v-if="errors.length">
+				<div v-for="error in errors" class="alert alert-danger">{{ error }}</div>
+			</p>
+			<div class="mb-3">
+				<label for="username" class="form-label">Username</label>
+				<input v-model="username" type="text" class="form-control" id="username" name="username" placeholder="username" required>
+			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label">Password</label>
+				<input v-model="password" type="password" class="form-control" id="password" name="password" placeholder="password" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+</div>
+
+<script src="/js/crypto-js.js"></script>
+<script src="/js/login.js"></script>
+<%- include('footer.ejs') %>
