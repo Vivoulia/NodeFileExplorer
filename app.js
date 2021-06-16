@@ -6,12 +6,13 @@ var app = express();
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var favicon = require('serve-favicon')
+const DB = require('./modules/db');
+const db = new DB("sqlitedb.db")
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 var cors = require('cors'); // CORS middleware
-const auth = require('./conf/auth');
 
 app.use(cors())
 app.use(favicon(path.join(__dirname, 'public', 'res', 'favicon.ico')))
@@ -30,7 +31,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new Strategy(
   function(username, password, cb) {
-    auth.findByUsername(username, function(err, user) {
+    db.selectByName(username, function(err, user) {
       if (err) { return cb(err); }
       if (!user) { return cb(null, false); }
       if (user.password != password) { return cb(null, false); }
@@ -43,7 +44,7 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-  auth.findById(id, function (err, user) {
+  db.selectById(id, function (err, user) {
       if (err) { return cb(err); }
       cb(null, user);
   });

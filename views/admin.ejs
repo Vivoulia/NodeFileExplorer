@@ -1,1 +1,46 @@
-admin oui oui oui
+<%- include('header.ejs') %>
+
+<body class="bg-light text-center">
+	<header class="header">
+	</header>
+
+<div id="newuser">
+	<div class="jumbotron shadow-sm p-3 mb-5 d-inline-flex">
+		<form action="/admin" method="post" @submit="checkFormnewuser" novalidate>
+            <legend>Create new user</legend>
+            <template v-if="errors.length">
+                <p>
+                    <div v-for="error in errors" class="alert alert-danger">{{ error }}</div>
+                </p>
+            </template>
+            <template v-if="<%= usercreated %> == 1">
+                <p>
+                    <div class="alert alert-success">Successful</div>
+                </p>
+            </template>
+            <template v-if="<%= usercreated %> == 2">
+                <p>
+                    <div class="alert alert-danger">Error</div>
+                </p>
+            </template>
+			<div class="mb-3">
+				<label for="username" class="form-label">Username</label>
+				<input v-model="username" type="text" class="form-control" id="username" name="username" placeholder="username" required>
+			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label">Password</label>
+				<input v-model="password" type="text" class="form-control" id="password" name="password" placeholder="password" required>
+			</div>
+            <div class="mb-3 form-check form-switch">
+                <input v-model="admin" type="checkbox" class="form-check-input" id="admin" name="admin">
+                <label class="form-check-label" for="admin">Admin</label>
+              </div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+</div>
+
+<script src="/js/crypto-js.js"></script>
+<script src="/js/admin.js"></script>
+
+<%- include('footer.ejs') %>

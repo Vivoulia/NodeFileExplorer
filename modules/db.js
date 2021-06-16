@@ -39,10 +39,10 @@ class Db {
         })
     }
 
-    insert(user, callback) {
+    insert(username, password, admin, callback) {
         return this.db.run(
-            'INSERT INTO user (name,password) VALUES (?,?)',
-            user, (err) => {
+            'INSERT INTO user (name,password, admin) VALUES (?,?,?)',
+            [username, password, admin], (err) => {
                 callback(err)
             })
     }
