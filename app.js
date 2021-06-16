@@ -14,7 +14,7 @@ var cors = require('cors'); // CORS middleware
 const auth = require('./conf/auth');
 
 app.use(cors())
-app.use(favicon(path.join(__dirname, 'public', 'res/favicon.ico')))
+app.use(favicon(path.join(__dirname, 'public', 'res', 'favicon.ico')))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
