@@ -12,7 +12,8 @@ class Db {
             CREATE TABLE IF NOT EXISTS user (
                 id integer PRIMARY KEY,
                 name text UNIQUE,
-                password text)`
+                password text,
+                admin boolean)`
         return this.db.run(sql);
     }
 
