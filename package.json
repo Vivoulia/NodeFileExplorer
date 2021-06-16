@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www",
-    "dev": "nodemon -e js,ejs,css ./bin/www"
+    "dev": "nodemon -e js ./bin/www"
   },
   "dependencies": {
     "bootstrap": "^5.0.1",
