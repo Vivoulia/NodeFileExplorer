@@ -5,6 +5,7 @@ var path = require('path');
 var app = express();
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
+var favicon = require('serve-favicon')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -13,6 +14,7 @@ var cors = require('cors'); // CORS middleware
 const auth = require('./conf/auth');
 
 app.use(cors())
+app.use(favicon(path.join(__dirname, 'public', 'res/favicon.ico')))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
