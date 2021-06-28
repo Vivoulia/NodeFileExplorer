@@ -12,6 +12,8 @@ services:
     command: npm start
     volumes:
       - ${NODEXPLORER_FOLDER:-./share}:/share
+      - ./conf:/conf
+      - .sqlitedb.db:/sqlitedb.db
     networks:
       - net
   reverse-proxy:
