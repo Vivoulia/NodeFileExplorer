@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var createError = require('http-errors');
 var express = require('express');
 var router = express.Router();
@@ -8,6 +9,16 @@ var Strategy = require('passport-local').Strategy;
 var favicon = require('serve-favicon')
 const DB = require('./modules/db');
 const db = new DB("sqlitedb.db")
+var debug = require('debug')('nodefile:server');
+var http = require('http');
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+var server = http.createServer(app);   // Create HTTP server.
+
+// Listen on provided port, on all network interfaces.
+server.listen(port);
+console.log('Listening on ' + port);
+server.on('error', onError);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -74,5 +85,44 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// Normalize a port into a number, string, or false.
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+  return false;
+}
+
+// Event listener for HTTP server "error" event.
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
 
 module.exports = app;
