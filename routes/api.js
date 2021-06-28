@@ -3,7 +3,7 @@ const fs = require('fs');
 const sanitize = require("sanitize-filename");
 
 function api(req, res) {
-  const requestdir = req.body.dir;  
+  const requestdir = basedir + "/" + req.body.dir;
 
   var dir = "";
   for (let index = 0; index < requestdir.length; index++) {
