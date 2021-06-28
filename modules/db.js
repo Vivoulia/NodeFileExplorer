@@ -46,6 +46,14 @@ class Db {
                 callback(err)
             })
     }
+
+    modify(username, password, admin, callback){
+        return this.db.run(
+            'UPDATE user SET password = ?, admin = ? WHERE name = ?',
+            [password, admin, username], (err) => {
+                callback(err)
+            })
+    }
 }
 
 module.exports = Db

@@ -15,12 +15,17 @@
             </template>
             <template v-if="<%= usercreated %> == 1">
                 <p>
-                    <div class="alert alert-success">Successful</div>
+                    <div class="alert alert-success">Successful created</div>
                 </p>
             </template>
             <template v-if="<%= usercreated %> == 2">
                 <p>
                     <div class="alert alert-danger">Error</div>
+                </p>
+            </template>
+            <template v-if="<%= usercreated %> == 3">
+                <p>
+                    <div class="alert alert-success">Successful amended</div>
                 </p>
             </template>
 			<div class="mb-3">

@@ -10,10 +10,22 @@ var admin = {
     const password = req.body.password;
     const admin = req.body.admin == "on";
 
-    db.insert(username, password, admin, function(err, user) {
-      if (err) { res.render('admin', {usercreated: "2"}); }
-      res.render('admin', {usercreated: "1"});
-  })
+    db.selectByName(username, function(err, user) {
+      if (!user) {
+        db.insert(username, password, admin, function(err, user) {
+          if (err) { res.render('admin', {usercreated: "2"}); }
+          res.render('admin', {usercreated: "1"});
+        })
+      }
+      else{
+        db.modify(username, password, admin, function(err, user) {
+          if (err) { res.render('admin', {usercreated: "2"}); }
+          res.render('admin', {usercreated: "3"});
+        })
+      }
+    })
+
+
   }
 }
 
