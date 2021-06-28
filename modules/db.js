@@ -14,7 +14,12 @@ class Db {
                 name text UNIQUE,
                 password text,
                 admin boolean)`
-        return this.db.run(sql);
+        this.db.run(sql);
+        return this.db.run(
+            'INSERT INTO user (name,password, admin) VALUES (?,?,?)',
+            ["admin", "admin", "1"], (err) => {
+                callback(err)
+            })
     }
 
     selectByName(name, callback) {
