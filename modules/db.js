@@ -14,10 +14,7 @@ class Db {
                 name text UNIQUE,
                 password text,
                 admin boolean)`
-        this.db.run(sql);
-        return this.db.run(
-            'INSERT INTO user (name,password, admin) VALUES (?,?,?)',
-            ["admin", "admin", "1"])
+        return this.db.run(sql);
     }
 
     selectByName(name, callback) {
