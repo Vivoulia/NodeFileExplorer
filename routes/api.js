@@ -15,7 +15,6 @@ function api(req, res) {
     return fs.readdir(basedir + "/" + dir, (err, filenames) => err != null ? reject(err) : resolve(filenames))
   }).then((filenames) => {
     filenames.forEach(file => {
-      console.log(file)
       jsonfiles.listfiles.push({
         "name" : file,
         "url"  : (dir=="" ? "" : (dir + "/")) + file,
