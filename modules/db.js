@@ -17,9 +17,7 @@ class Db {
         this.db.run(sql);
         return this.db.run(
             'INSERT INTO user (name,password, admin) VALUES (?,?,?)',
-            ["admin", "admin", "1"], (err) => {
-                callback(err)
-            })
+            ["admin", "admin", "1"])
     }
 
     selectByName(name, callback) {
