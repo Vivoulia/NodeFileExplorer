@@ -1,4 +1,4 @@
-const basedir = process.env.FOLDER || ".";
+const basedir = process.env.FOLDER || "share";
 const fs = require('fs');
 
 function files(req, res) {

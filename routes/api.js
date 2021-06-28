@@ -1,23 +1,25 @@
-const basedir = process.env.FOLDER || ".";
+const basedir = process.env.FOLDER || "share";
 const fs = require('fs');
 const sanitize = require("sanitize-filename");
 
 function api(req, res) {
-  const requestdir = basedir + "/" + req.body.dir;
+  const requestdir = req.body.dir;
 
   var dir = "";
   for (let index = 0; index < requestdir.length; index++) {
     dir = dir + "/" + sanitize(requestdir[index]);
   }
+
   var jsonfiles = {"listfiles": []};
   new Promise((resolve, reject) => {
-    return fs.readdir(dir, (err, filenames) => err != null ? reject(err) : resolve(filenames))
+    return fs.readdir(basedir + "/" + dir, (err, filenames) => err != null ? reject(err) : resolve(filenames))
   }).then((filenames) => {
     filenames.forEach(file => {
+      console.log(file)
       jsonfiles.listfiles.push({
         "name" : file,
-        "url"  : dir + "/" + file,
-        "file" : fs.lstatSync(dir + "/" + file).isFile(),
+        "url"  : (dir=="" ? "" : (dir + "/")) + file,
+        "file" : fs.lstatSync(basedir + "/" + (dir=="" ? "" : (dir + "/")) + file).isFile(),
         "type" : type(file)
         })
     })
