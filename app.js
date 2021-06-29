@@ -8,6 +8,7 @@ var app = express();
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var favicon = require('serve-favicon')
+const secrets = require('./conf/config');
 const DB = require('./modules/db');
 const db = new DB("sqlitedb.db")
 var debug = require('debug')('nodefile:server');
@@ -42,8 +43,7 @@ app.get('/js/crypto-js.js', function(req, res) {
   res.sendFile(__dirname + '/node_modules/crypto-js/crypto-js.js');
 });
 
-
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(require('express-session')({ secret: secrets.secret, resave: false, saveUninitialized: false }));
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
