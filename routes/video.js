@@ -1,8 +1,9 @@
 const basedir = process.env.FOLDER || "share";
 const fs = require('fs');
+const sanitize = require("sanitize-filename");
 
 function video(req, res) {
-    const fileName = req.params[0];
+    const filePath = req.params[0];
     const directoryPath = basedir + "/";
     // Ensure there is a range given for the video
     const range = req.headers.range;
@@ -10,8 +11,16 @@ function video(req, res) {
     res.status(400).send("Requires Range header");
     }
 
+    // Sanitize filename
+    var filePathSanatized = ""
+    const filePathtab = filePath.split("/")
+    for (let index = 0; index < filePathtab.length - 1; index++) {
+        filePathSanatized = filePathSanatized + sanitize(filePathtab[index]) + "/";        
+    }
+    filePathSanatized = filePathSanatized + sanitize(filePathtab[filePathtab.length-1], ".")
+
     // get video stats
-    const videoPath = directoryPath + fileName;
+    const videoPath = directoryPath + filePathSanatized;
     const videoSize = fs.statSync(videoPath).size;
 
     
