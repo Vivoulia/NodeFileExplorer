@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var createError = require('http-errors');
 var express = require('express');
+const rateLimit = require("express-rate-limit");
 var router = express.Router();
 var path = require('path');
 var app = express();
@@ -32,9 +33,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/vue/dist/'));      // Include Vue js
 app.use('/', express.static(__dirname + '/node_modules/bootstrap/dist/'));  // Include bootstrap
+const apiLimiter = rateLimit({
+  windowMs: 1000, // 1 sec
+  max: 50
+});
+app.use("/", apiLimiter);
 app.get('/js/crypto-js.js', function(req, res) {
   res.sendFile(__dirname + '/node_modules/crypto-js/crypto-js.js');
 });
+
 
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
