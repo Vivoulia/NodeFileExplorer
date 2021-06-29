@@ -1,21 +1,26 @@
 #!/usr/bin/env node
-var createError = require('http-errors');
-var express = require('express');
+// Core server
+const createError = require('http-errors');
+const express = require('express');
+const app = express();
+const router = express.Router();
+const http = require('http');
+const server = http.createServer(app);   // Create HTTP server.
+
+// middlewares
 const rateLimit = require("express-rate-limit");
-var router = express.Router();
-var path = require('path');
-var app = express();
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
-var favicon = require('serve-favicon')
-const secrets = require('./conf/config');
+const favicon = require('serve-favicon')
+const cors = require('cors'); // CORS middleware
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
 const DB = require('./modules/db');
 const db = new DB("sqlitedb.db")
-var debug = require('debug')('nodefile:server');
-var http = require('http');
-var port = normalizePort(process.env.PORT || '3000');
+
+const debug = require('debug')('nodefile:server');
+const path = require('path');
+const secrets = require('./conf/config');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-var server = http.createServer(app);   // Create HTTP server.
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
@@ -25,7 +30,6 @@ server.on('error', onError);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-var cors = require('cors'); // CORS middleware
 
 app.use(cors())
 app.use(favicon(path.join(__dirname, 'public', 'res', 'favicon.ico')))
