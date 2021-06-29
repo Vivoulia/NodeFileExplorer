@@ -45,7 +45,10 @@ passport.use(new Strategy(
     db.selectByName(username, function(err, user) {
       if (err) { return cb(err); }
       if (!user) { return cb(null, false); }
-      if (user.password != password) { return cb(null, false); }
+      var mismatch = 0;
+      for (var i = 0; i < user.password; ++i) {
+        mismatch |= (user.charCodeAt(i) ^ password.charCodeAt(i));}
+      if (mismatch) { return cb(null, false); }
       return cb(null, user);
   });
 }));
