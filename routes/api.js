@@ -1,4 +1,5 @@
 const basedir = process.env.FOLDER || "share";
+const maxdepth = process.env.MAXFOLDER || 100;
 const fs = require('fs');
 const sanitize = require("sanitize-filename");
 
@@ -6,7 +7,7 @@ function api(req, res) {
   const requestdir = req.body.dir;
 
   var dir = "";
-  for (let index = 0; index < requestdir.length; index++) {
+  for (let index = 0; index < (requestdir.length < maxdepth ? requestdir.length : maxdepth); index++) {
     dir = dir + "/" + sanitize(requestdir[index]);
   }
 
