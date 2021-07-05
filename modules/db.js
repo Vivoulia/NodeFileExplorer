@@ -54,6 +54,14 @@ class Db {
                 callback(err)
             })
     }
+
+    removeByName(name, callback) {
+        return this.db.get(
+            `DELETE FROM user WHERE name = ?`,
+            [name],function(err){
+                callback(err)
+            })
+    }
 }
 
 module.exports = Db
