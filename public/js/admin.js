@@ -3,7 +3,6 @@ Vue.use(VueToast);
 const app = new Vue({
     el: '#newuser',
     data: {
-      alerts: [],
         username: "",
         password: "",
         admin: false
