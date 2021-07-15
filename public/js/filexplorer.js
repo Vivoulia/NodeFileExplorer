@@ -1,3 +1,12 @@
+/* $(document).ready(function(){
+    $('.slickcar').slick({
+        lazyLoad: 'ondemand',
+        slidesToShow: 3,
+        slidesToScroll: 1
+    });
+  }); */
+
+
 const app = new Vue({
     el: '#main',
    
@@ -26,6 +35,22 @@ const app = new Vue({
         }
     },
     methods: {
+        showimageModal(slide) {
+            var imagemodal = document.getElementById('imagemodal')
+            $('.slickcar').slick({
+                lazyLoad: 'ondemand',
+                infinite: true,
+                centerMode: true,
+                variableWidth: true,
+                dots: true,
+                adaptiveHeight: true,
+                initialSlide: slide
+            });
+            imagemodal.addEventListener('hidden.bs.modal', function () {
+                $('.slickcar').slick('unslick');
+                this.removeEventListener('hidden.bs.modal',arguments.callee)
+            })
+        },
         getindeximage(indexall) {
             var listimage = []
             for (let index = 0; index < this.result.length; index++) {
@@ -108,40 +133,17 @@ const app = new Vue({
         videomodal.addEventListener('hidden.bs.modal', function (event) {
             // When closed, pause the video
             document.getElementById("videosource").pause();
-
         })
-
-        var imagemodal = document.getElementById('imagemodal')
-        imagemodal.addEventListener('show.bs.modal', function (event) {
-            // Button that triggered the modal
-            var button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            var lienfichier = button.getAttribute('data-bs-lienfichier')
-            var indexfichier = button.getAttribute('data-bs-index')
-            // Update the modal's content.
-            // Update the link
-            document.getElementById("carouselnb" + indexfichier).classList.add("active")
-            document.getElementById("carouselbtnnb" + indexfichier).classList.add("active")
-            app.modalimagetitle = button.getAttribute('data-bs-nomfichier')
-        })
+        /* 
         var carouselimagemodal = document.getElementById('carouselIndicators')
         carouselimagemodal.addEventListener('slid.bs.carousel', function (event) {
             // Update the title of the modal when change slide
             app.modalimagetitle = document.getElementsByClassName('carousel-item active')[0].innerText
         
         })
-
-
-        imagemodal.addEventListener('hidden.bs.modal', function (event) {
-            // When closed, desactivate the carousel
-            const carouselactive = document.getElementsByClassName('carousel-item active')
-            while(carouselactive[0] != undefined){
-                const indexcarousel = carouselactive[carouselactive.length-1].id.split("carouselnb")[1]
-                document.getElementById("carouselbtnnb" + indexcarousel).classList.remove("active")
-                carouselactive[carouselactive.length-1].classList.remove("active")
-            }
-
-        })
+        */
+     },
+     created(){
 
      }
 })
