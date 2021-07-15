@@ -1,12 +1,3 @@
-/* $(document).ready(function(){
-    $('.slickcar').slick({
-        lazyLoad: 'ondemand',
-        slidesToShow: 3,
-        slidesToScroll: 1
-    });
-  }); */
-
-
 const app = new Vue({
     el: '#main',
    
