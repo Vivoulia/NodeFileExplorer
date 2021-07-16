@@ -44,7 +44,7 @@
           </div>
           <div class="d-flex">
             <button v-if="file.type == 'video'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videomodal" :data-bs-nomfichier="file.name" :data-bs-lienfichier="'/video/' + file.url">Watch video</button>
-            <button v-if="file.type == 'image'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imagemodal" :data-bs-nomfichier="file.name" :data-bs-index="getindeximage(index)" :data-bs-lienfichier="'/files/' + file.url">View image</button>
+            <button v-if="file.type == 'image'" @click="showimageModal(getindeximage(index))" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imagemodal" :data-bs-nomfichier="file.name" :data-bs-index="getindeximage(index)" :data-bs-lienfichier="'/files/' + file.url">View image</button>
           </div>
         </div>
       </div>
@@ -75,35 +75,16 @@
         <div class="modal-content">
 
           <div class="modal-header">
-            <h5 class="modal-title" id="modal-image-title">{{modalimagetitle}}</h5>
+            <h5 class="modal-title flex-fill" id="modal-image-title">{{modalimagetitle}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-
-          <div class="modal-body d-flex align-self-center">
-            <div id="carouselIndicators" class="carousel carousel-fade" data-interval="false">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselIndicators" :data-bs-slide-to="index" :aria-label="'Slide' + index" :id="'carouselbtnnb' + index"  v-if="file.type == 'image'" v-for="(file, index) in onlyimages" :key="file.name"></button>
-              </div>
-              <div class="carousel-inner">
-                <div class="list-group">
-                    <div v-for="(file, index) in onlyimages" :key="file.name" class="carousel-item" :id="'carouselnb' + index">
-                      <img :src="'/files/' + file.url" :alt="file.name">
-                      <div class="carousel-caption">
-                        <h3>{{file.name}}</h3>
-                      </div>
-                    </div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+          
+          <div class="modal-body slickcar">
+            <div class="d-flex" v-for="(file, index) in onlyimages" :key="file.name">
+              <img :src="'/files/' + file.url" :alt="file.name" class='img-fluid mx-auto'>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -111,4 +92,6 @@
 
 </div>
 
+<script type="text/javascript" src="jquery/jquery.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
 <script src="/js/filexplorer.js"></script>

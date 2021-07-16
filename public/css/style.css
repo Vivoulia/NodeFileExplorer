@@ -6,9 +6,33 @@ a {
   color: #00B7FF;
 }
 
-img{
-  max-width: 100%;
-  max-height: 100%;
+.modal-header .btn-close {
+  padding: .5rem .5rem;
+  margin: -.5rem -.5rem -.5rem;
+}
+
+.slick-track
+{
+    display: flex !important;
+}
+
+.slick-slide
+{
+    height: inherit !important;
+}
+
+.modal {
+  text-align:center;
+}
+
+.modal-dialog {
+  display: inline-block;
+  width: auto;
+}
+
+.img-fluid {
+  max-height: calc(100vh - 225px);
+  object-fit: contain;
 }
 
 .fileexp {
