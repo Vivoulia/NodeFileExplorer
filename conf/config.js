@@ -1,3 +1,5 @@
 module.exports = {
-    'secret': 'supersecret'
+    'secret': 'supersecret',
+    'defaultuser' : 'admin',
+    'defaultpass' : 'admin'
 };

@@ -15,6 +15,7 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const DB = require('./modules/db');
 const db = new DB("sqlitedb.db")
+const CryptoJS = require('crypto-js');
 
 const debug = require('debug')('nodefile:server');
 const path = require('path');
@@ -80,7 +81,8 @@ passport.deserializeUser(function(id, cb) {
 
 // Create a default account if needed
 db.selectAll(function(err, user) {
-  if (!user[0]) { db.insert("admin", "ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff", "1", function(err, user) {if (err) { console.log(err) }})}
+  if (user == undefined) { db.insert(secrets.defaultuser, CryptoJS.SHA512(secrets.defaultpass).toString(), "1", function(err, user) {if (err) { console.log(err) }})}
+  else if (!user[0]) { db.insert(secrets.defaultuser, CryptoJS.SHA512(secrets.defaultpass).toString(), "1", function(err, user) {if (err) { console.log(err) }})}
 })
 
 app.get("/login", (req, res) => res.render('login'))
