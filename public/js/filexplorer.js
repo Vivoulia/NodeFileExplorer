@@ -32,13 +32,19 @@ const app = new Vue({
                 lazyLoad: 'ondemand',
                 infinite: true,
                 centerMode: true,
-                variableWidth: true,
+                variableWidth: false,
                 dots: true,
                 adaptiveHeight: true,
-                initialSlide: slide
+                initialSlide: slide,
+                centerMode: true
+            });
+            $('.slickcar').on('afterChange', function (event, slick, currentSlide) {
+                app.modalimagetitle = document.getElementsByClassName('slick-current')[0].children[0].alt;
             });
             imagemodal.addEventListener('hidden.bs.modal', function () {
+                console.log('hidden')
                 $('.slickcar').slick('unslick');
+                $('.slickcar').off('afterChange')
                 this.removeEventListener('hidden.bs.modal',arguments.callee)
             })
         },
