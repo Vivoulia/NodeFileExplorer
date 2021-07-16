@@ -36,10 +36,11 @@ app.use(favicon(path.join(__dirname, 'public', 'res', 'favicon.ico')))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/js', express.static(__dirname + '/node_modules/vue/dist/'));      // Include Vue js
-app.use('/', express.static(__dirname + '/node_modules/bootstrap/dist/'));  // Include bootstrap
-app.use('/', express.static(__dirname + '/node_modules/vue-toast-notification/dist/'));  // Include toast notification
-app.use('/slick', express.static(__dirname + '/node_modules/slick-carousel/slick'));
+app.use('/js', express.static(__dirname + '/node_modules/vue/dist/'));                    // Include Vue js
+app.use('/', express.static(__dirname + '/node_modules/bootstrap/dist/'));                // Include bootstrap
+app.use('/', express.static(__dirname + '/node_modules/vue-toast-notification/dist/'));   // Include toast notification
+app.use('/slick', express.static(__dirname + '/node_modules/slick-carousel/slick'));      // Include slick carousel
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));             // Include jquery
 const apiLimiter = rateLimit({
   windowMs: 1000, // 1 sec
   max: 50
