@@ -18,7 +18,7 @@
     "express": "~4.17.1",
     "express-rate-limit": "^5.5.1",
     "express-session": "^1.17.2",
-    "http-errors": "~1.8.0",
+    "http-errors": "~1.8.1",
     "jquery": "^3.6.0",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
